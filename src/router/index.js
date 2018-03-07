@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import RaceSelector from '@/components/RaceSelector'
+import RaceInformation from '@/components/RaceInformation'
 
 Vue.use(Router)
 
@@ -8,8 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'RaceSelector',
+      component: RaceSelector
+    },
+    {
+      path: '/:race-information',
+      name: 'RaceInformation',
+      component: RaceInformation
     }
   ]
 })

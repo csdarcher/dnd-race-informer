@@ -1,26 +1,40 @@
 <template>
-    <dl>
-        <dt v-if="weatherData.temp != weatherData.temp_min">Current Temp</dt>
-        <dd v-if="weatherData.temp != weatherData.temp_min">{{ weatherData.temp }}&deg;F</dd>
-        <dt>Humidity</dt>
-        <dd>{{ weatherData.humidity }}%</dd>
-        <dt>High</dt>
-        <dd>{{ weatherData.temp_max }}&deg;F</dd>
-        <dt>Low</dt>
-        <dd>{{ weatherData.temp_min }}&deg;F</dd>
-    </dl>
+  <div class = "race-information">  
+    <table>
+    <thead>
+      <tr>
+        <td></td>
+        <th>{{ class1 }}</th>
+        <th>{{ class2 }}</th>
+        <th>{{ class3 }}</th>
+      </tr>
+    </thead>
+      <tbody>
+        <tr>
+          <th>Alignment</th>
+        </tr>
+        <tr>
+          <th>Age</th>
+        </tr>
+        <tr>
+          <th>Size</th>
+        </tr>
+        <tr>
+          <th>Starting Profiencies</th>
+        </tr>
+      </tbody>
+    </table>
+  </div> 
 </template>
 
 <script>
 export default {
-  name: 'WeatherData',
+  name: 'RaceInformation',
+/*  
   data () {
-    return {
-    }
+    return []
   },
-  props: {
-    weatherData: Object
-  }
+*/   
 }
 </script>
 
