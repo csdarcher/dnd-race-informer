@@ -1,41 +1,15 @@
 <template>
   <div class = "race-information">  
-    <table>
-    <thead>
-      <tr>
-        <td></td>
-        <th>{{ class1 }}</th>
-        <th>{{ class2 }}</th>
-        <th>{{ class3 }}</th>
-      </tr>
-    </thead>
-      <tbody>
-        <tr>
-          <th>Alignment</th>
-        </tr>
-        <tr>
-          <th>Age</th>
-        </tr>
-        <tr>
-          <th>Size</th>
-        </tr>
-        <tr>
-          <th>Starting Profiencies</th>
-        </tr>
-      </tbody>
-    </table>
+    <ul v-if="results && results.length > 0 " class="results">
+      <li v-for="item in results" class="item">
+        <p><strong>{{ item.name }}</strong></p>
+        <p>{{ item.alignment}}</p>
+      </li>
+    </ul>
   </div> 
 </template>
 
 <script>
-export default {
-  name: 'RaceInformation',
-/*  
-  data () {
-    return []
-  },
-*/   
-}
 </script>
 
 <style>
