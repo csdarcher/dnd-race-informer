@@ -5,51 +5,40 @@
     </div>
 
    <h2> Select 2 races below to compare.</h2>
-    <!-- <div class="grid-container">
-            <div class="grid-item">Dwarf</div>
-                <div class="grid-item">Elf</div>
-                <div class="grid-item">Halfling</div>
-                <div class="grid-item">Human</div>
-                <div class="grid-item">Dragon-Born</div>
-                <div class="grid-item">Gnome</div>
-                <div class="grid-item">Half-Elf</div>
-                <div class="grid-item">Half-Orc</div>
-                <div class="grid-item">Tiefling</div>
-        </div> -->
       <div class="form-container">  
         <form v-on:submit.prevent="compareRaces">
           <div v-if="true">
             <div id='checkboxes'>
-                <input type="checkbox" id="dwarf" value="races" v-model="checkedNames">
+                <input type="checkbox" id="dwarf" value="races" v-model="races">
                 <label for="dwarf">Dwarf</label>
-                <input type="checkbox" id="elf" value="races" v-model="checkedNames">
+                <input type="checkbox" id="elf" value="races" v-model="races">
                 <label for="elf">Elf</label>
-                <input type="checkbox" id="halfling" value="races" v-model="checkedNames">
+                <input type="checkbox" id="halfling" value="races" v-model="races">
                 <label for="halfling">Halfing</label>
-                <input type="checkbox" id="human" value="races" v-model="checkedNames">
+                <input type="checkbox" id="human" value="races" v-model="races">
                 <label for="human">Human</label>
-                <input type="checkbox" id="dragon-born" value="races" v-model="checkedNames">
+                <input type="checkbox" id="dragon-born" value="races" v-model="races">
                 <label for="dragon-born">Dragon-Born</label>
-                <input type="checkbox" id="gnome" value="races" v-model="checkedNames">
+                <input type="checkbox" id="gnome" value="races" v-model="races">
                 <label for="gnome">Gnome</label>
-                <input type="checkbox" id="half-elf" value="races" v-model="checkedNames">
+                <input type="checkbox" id="half-elf" value="races" v-model="races">
                 <label for="half-elf">Half-Elf</label>
-                <input type="checkbox" id="half-orc" value="races" v-model="checkedNames">
+                <input type="checkbox" id="half-orc" value="races" v-model="races">
                 <label for="half-orc">Half-Orc</label>
-                <input type="checkbox" id="tiefling" value="races" v-model="checkedNames">
+                <input type="checkbox" id="tiefling" value="races" v-model="races">
                 <label for="tiefling">Tiefling</label>
                 <br>
             </div>
                 <!-- <div class="grid-container"> 
                   <div class="grid-item" :key="index" v-for="(item,index) in races">
                     {{ item.name }} --> 
-              <button type="submit">Submit</button> 
+              <button type="submit">Compare</button> 
           </div>  
         </form>  
         <ul v-if="results && results.length > 0 " class="results">
             <li v-for="item in results" class="item">
-              <p><strong>{{ item.name }}</strong></p>
-              <p>{{ item.alignment}}</p>
+              <p><strong>{{ item.races }}</strong></p>
+              <p>{{ item.races }}</p>
             </li>
        </ul>
      </div>
@@ -63,25 +52,25 @@ export default {
   name: "RaceSelector",
   data() {
     return {
-      races: [],
+      results: null,
+      races: "",
       errors: []
-    }
+    };
   },
 
   methods: {
-    compareRaces: function () {
-      axios.get('http://dnd5eapi.co/api/races', {
-      })
+    compareRaces: function() {
+      API.get("http://dnd5eapi.co/api/races", {})
 
-  .then(response => {
-        this.results = response.data
-      })
-      .catch(error => {
-        this.errors.push(error.message)
-      });
+        .then(response => {
+          this.results = response.data;
+        })
+        .catch(error => {
+          this.errors.push(error.message);
+        });
     }
-  },
-}
+  }
+};
 // TO DO: Add error message for when user fails to choose a race or chooses more than 2 races.
 </script>
 
@@ -107,10 +96,18 @@ a {
   color: #42b983;
 }
 
-.form-container {
-  padding: 15px;
+.race-selector {
+  border: 2px;
+  border-color: #7a7362;
+}
+
+button {
+  background: #df0404;
   margin: 10px;
-  /* font-size: 20px; */
+  padding: 0.5rem;
+  color: #fff;
+  border: none;
+  font-size: 15px;
 }
 
 /*.grid-item {

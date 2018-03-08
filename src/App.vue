@@ -29,6 +29,12 @@ export default {
 body {
   background: #E6E6DB;
 }
+
+.race-selector {
+  border: 2px;
+  border-color: #7A7362;
+} 
+
 </style>
 
 
