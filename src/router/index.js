@@ -12,6 +12,8 @@ export default new Router({
       name: 'RaceSelector',
       component: RaceSelector
     }
+
+   
     // {
     //   path: '/:RaceInformation',
     //   name: 'RaceInformation',
