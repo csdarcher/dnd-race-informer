@@ -6,82 +6,62 @@
       <div class="form-container"> 
         <h2> Select 2 races below to compare.</h2>
               <form v-on:submit.prevent="compareRaces">
-                <div v-if="true">
-                  <div id='checkboxes'>
-                      <input type="checkbox" id="dwarf" value="races" v-model="checkedRaces">
-                      <label for="dwarf">Dwarf</label>
-                      <input type="checkbox" id="elf" value="races" v-model="checkedRaces">
-                      <label for="elf">Elf</label>
-                      <input type="checkbox" id="halfling" value="races" v-model="checkedRaces">
-                      <label for="halfling">Halfing</label>
-                      <input type="checkbox" id="human" value="races" v-model="checkedRaces">
-                      <label for="human">Human</label>
-                      <input type="checkbox" id="dragon-born" value="races" v-model="checkedRaces">
-                      <label for="dragon-born">Dragon-Born</label>
-                      <input type="checkbox" id="gnome" value="races" v-model="checkedRaces">
-                      <label for="gnome">Gnome</label>
-                      <input type="checkbox" id="half-elf" value="races" v-model="checkedRaces">
-                      <label for="half-elf">Half-Elf</label>
-                      <input type="checkbox" id="half-orc" value="races" v-model="checkedRaces">
-                      <label for="half-orc">Half-Orc</label>
-                      <input type="checkbox" id="tiefling" value="races" v-model="checkedRaces">
-                      <label for="tiefling">Tiefling</label> 
-                      <br>
-                  </div> 
-                <!-- <div class="grid-container"> 
-                  <div class="grid-item" :key="index" v-for="(item,index) in races">
-                    {{ item.name }} --> 
-              <button type="submit">Compare</button> 
-          </div>  
+                <div class="races" v-for="(result,index) in results" :key="index">
+                  <input type="checkbox" :id="result.name" :value="result.url" v-model="checkedRaces">
+                  <label :for="result.name">{{result.name}}</label>
+                </div> 
+                 <button type="submit">Compare</button> 
             <load-spinner v-if="showLoading"></load-spinner>
-        </form>  
-        <ul class="races" v-if="results && results.length > 0 ">
-            <li v-for="item in results" class="item">
-              <p><strong>{{ races.name }}</strong></p>
-              <p>{{ races.alignment }}</p>
-            </li>
-       </ul>
-     </div>
+                <ul class="races" v-if="results && results.length > 0 ">
+                    <li v-for="item in results" class="item">
+                      <p><strong>{{ checkedRaces.name }}</strong></p>
+                      <p>{{ checkedRaces.alignment }}</p>
+                    </li>
+                </ul> 
+            </form>  
+              <!-- <ul class="cities" v-if="results && results.list.length > 0">
+                <li v-for="city in results.list">
+                  <h2>{{ city.name }}, {{ city.sys.country }}</h2> -->
+                <!-- </ul> -->
+        </div>
   </div>      
 </template>
 
 <script>
-import { API } from "@/components/api"
-// import axios from 'axios'
-import DoubleBounce from "@/components/DoubleBounce"
+import axios from "axios";
+// import DoubleBounce from "@/components/DoubleBounce"
 
 export default {
   name: "RaceSelector",
-  components: {
-    'load-spinner': DoubleBounce
-  },
+  // components: {
+  //   'load-spinner': DoubleBounce
+  // },
 
   data() {
     return {
       results: null,
-      showLoading: false, 
-      checkedRaces: [], 
-      races: [],
+      showLoading: false,
+      checkedRaces: [],
       errors: []
     };
+  },
+  created() {
+    let self = this;
+    axios
+      .get("http://www.dnd5eapi.co/api/races")
+      .then(response => {
+        // this.showSpinner = false;
+        self.results = response.data.results;
+      })
+      .catch(e => {
+        // this.showSpinner = false;
+        this.errors.push(e);
+      });
   },
 
   methods: {
     compareRaces: function() {
-       API.get('find', {
-          params: {
-              races: this.name,
-              alignment: this.alignment,
-              
-          }
-        })
-
-        .then(response => {
-          this.results = response.data;
-        })
-        .catch(error => {
-          this.errors.push(error.message);
-        });
+      this.results = {};
     }
   }
 };
@@ -103,7 +83,7 @@ ul {
   padding: 0;
 }
 li {
-  display: inline-block; 
+  display: inline-block;
   margin: 0 10px;
 }
 
@@ -124,5 +104,4 @@ button {
   border: none;
   font-size: 15px;
 }
-
 </style>
